@@ -6,36 +6,16 @@ import { getFetch } from "@trpc/client";
 import { loggerLink } from "@trpc/client/links/loggerLink";
 import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { trpc } from "./utils/trpc";
-
-function AppContent() {
-  const hello = trpc.sayHello.useQuery();
-
-  const user = {
-    name: "santiago",
-    email: "santiagotest@gmail.com",
-    photo: "kappa.png",
-    password: "Torgugas12!123",
-    passwordConfirm: "Torgugas12!123",
-  };
-
-  const userMutation = trpc.registerUser.useMutation();
-
-  return (
-    <div className="container mx-auto rounded-xl shadow border p-8 m-10">
-      <p className="text-3xl text-gray-700 font-bold mb-5">Welcome!</p>
-      <p className="text-lg">{hello.data?.message}</p>
-
-      <button
-        onClick={() => {
-          userMutation.mutate(user);
-        }}
-      >
-        {" "}
-        Register user{" "}
-      </button>
-    </div>
-  );
-}
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Register from "./pages/Register";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Register />,
+  },
+]);
 
 function App() {
   const [queryClient] = useState(
@@ -69,8 +49,9 @@ function App() {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        <AppContent />
+        <RouterProvider router={router} />
         <ReactQueryDevtools initialIsOpen={false} />
+        <ToastContainer />
       </QueryClientProvider>
     </trpc.Provider>
   );
