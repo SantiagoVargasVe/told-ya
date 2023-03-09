@@ -5,6 +5,9 @@ import { trpc } from "../utils/trpc";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Success from "../components/toasts/Success";
+import Error from "../components/toasts/Error";
+import * as Portal from "@radix-ui/react-portal";
 interface IFormInputs {
   name: string;
   email: string;
@@ -23,35 +26,21 @@ function Register() {
   });
   const mutation = trpc.registerUser.useMutation();
 
+  const [openSuccess, setOpenSuccess] = useState(false);
+
+  const [openError, setOpenError] = useState(false);
+
   const [viewPassword, setViewPassword] = useState(false);
 
   const [viewConfirmPassword, setViewConfirmPassword] = useState(false);
 
   useEffect(() => {
     if (mutation.isError) {
-      toast.error(mutation.error.message, {
-        position: "top-right",
-        autoClose: false,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      setOpenError(true);
     }
 
     if (mutation.isSuccess) {
-      toast.success("User created succesfully", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      setOpenSuccess(true);
     }
   }, [mutation.isError, mutation.isSuccess]);
 
@@ -118,7 +107,7 @@ function Register() {
                 )}
               </div>
             </div>
-            <p className="text-sm text-red-500"> {errors.password?.message}</p>
+            <p className="text-sm text-red-500">{errors.password?.message}</p>
           </div>
 
           <div className="flex gap-1 flex-col min-w-full">
@@ -153,6 +142,16 @@ function Register() {
           />
         </form>
       </section>
+      <Success
+        open={openSuccess}
+        setOpen={setOpenSuccess}
+        successMessage="The user has been created succesfully"
+      />
+      <Error
+        open={openError}
+        setOpen={setOpenError}
+        errorMessage="The user has been created succesfully"
+      />
     </main>
   );
 }
