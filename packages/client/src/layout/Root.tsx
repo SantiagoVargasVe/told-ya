@@ -1,9 +1,12 @@
 import { Outlet } from "react-router-dom";
+import Navigation from "../components/Navigation";
 function Root() {
   return (
-    <div className="container flex flex-col mx-auto h-full">
-      <h1 className="bg-slate-500">Text</h1>
-      <Outlet />
+    <div className="h-full flex flex-col">
+      <Navigation />
+      <div className="container flex flex-col mx-auto h-full">
+        <Outlet />
+      </div>
     </div>
   );
 }
