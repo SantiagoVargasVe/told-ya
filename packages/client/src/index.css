@@ -1,3 +1,8 @@
 #root {
-  @apply min-h-screen bg-background max-w-full;
+  @apply bg-background max-w-full h-full;
+}
+
+html,
+body {
+  height: 100%;
 }

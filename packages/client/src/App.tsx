@@ -10,10 +10,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register from "./pages/Register";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Root from "./layout/Root";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Register />,
+    element: <Root />,
+    children: [
+      {
+        path: "/register",
+        element: <Register />,
+      },
+    ],
   },
 ]);
 

@@ -69,7 +69,7 @@ function Register() {
   };
 
   return (
-    <main className="container min-h-screen mx-auto flex items-center justify-center">
+    <main className="container  h-full mx-auto flex items-center justify-center">
       <section className="bg-main px-10 w-[300px] py-10 rounded-sm flex flex-col items-start gap-5 justify-center">
         <h1 className=" text-main_headline font-bold self-center">
           Create an user
