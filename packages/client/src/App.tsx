@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Root from "./layout/Root";
+import Home from "./pages/Home";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,6 +20,14 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "home",
+        element: <Home />,
       },
     ],
   },
